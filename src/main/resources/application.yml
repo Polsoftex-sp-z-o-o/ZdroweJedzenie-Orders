@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    username: acjmjilj
+    password: bh1qY_fCQqE99O2SRqHaAqxMX68yKCfU
+    url: jdbc:postgresql://tai.db.elephantsql.com:5432/acjmjilj
+    maxActive: 1
+
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
