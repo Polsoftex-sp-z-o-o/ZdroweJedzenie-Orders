@@ -21,11 +21,11 @@ import java.util.UUID;
 public class OrderedProductDAO {
     @Id
     @Column(name = "order_id")
-    @Type(type="org.hibernate.type.UUIDCharType")
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID orderId;
     @Id
     @Column(name = "product_id")
-    @Type(type="org.hibernate.type.UUIDCharType")
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID productId;
     private int quantity;
 }

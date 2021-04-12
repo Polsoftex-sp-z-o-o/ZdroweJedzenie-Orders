@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.boot.context.properties.bind.Name;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,7 +21,7 @@ public class OrderDTO {
     @JsonProperty("orderedProducts")
     private List<OrderedProductDTO> orderedProductDTOs;
 
-    public OrderDTO (OrderDAO orderDAO, List<OrderedProductDAO> orderedProductDAOs) {
+    public OrderDTO(OrderDAO orderDAO, List<OrderedProductDAO> orderedProductDAOs) {
         this.id = orderDAO.getId();
         this.userId = orderDAO.getUserId();
         this.placementDate = orderDAO.getPlacementDate();

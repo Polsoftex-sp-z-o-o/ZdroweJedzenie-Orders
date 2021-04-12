@@ -19,10 +19,10 @@ import java.util.UUID;
 public class OrderDAO {
     @Id
     @GeneratedValue
-    @Type(type="org.hibernate.type.UUIDCharType")
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
     @Column(name = "user_id")
-    @Type(type="org.hibernate.type.UUIDCharType")
+    @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID userId;
     @Column(name = "placement_date")
     private Date placementDate;

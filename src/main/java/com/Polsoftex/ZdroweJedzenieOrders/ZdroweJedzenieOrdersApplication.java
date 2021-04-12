@@ -8,8 +8,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 public class ZdroweJedzenieOrdersApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ZdroweJedzenieOrdersApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ZdroweJedzenieOrdersApplication.class, args);
+    }
 
 }
