@@ -4,6 +4,9 @@ import com.Polsoftex.ZdroweJedzenieOrders.feignClients.ProductsClient;
 import com.Polsoftex.ZdroweJedzenieOrders.model.OrderDTO;
 import com.Polsoftex.ZdroweJedzenieOrders.repositories.OrderedProductsRepository;
 import com.Polsoftex.ZdroweJedzenieOrders.repositories.OrdersRepository;
+import com.Polsoftex.ZdroweJedzenieOrders.services.CartService;
+import com.Polsoftex.ZdroweJedzenieOrders.services.OrdersService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,16 +29,11 @@ public class OrdersController {
     private UUID userId = new UUID(1, 1);
 
     @Autowired
-    private OrdersRepository ordersRepository;
-    @Autowired
-    private OrderedProductsRepository orderedProductsRepository;
-    @Autowired
-    private ProductsClient productsClient;
+    private OrdersService ordersService;
 
     @GetMapping("")
     List<OrderDTO> getOrders() {
-        // TODO
-        return new ArrayList<>();
+        return ordersService.getOrders();
     }
 
     @PostMapping("")
@@ -46,8 +44,7 @@ public class OrdersController {
 
     @GetMapping("/{id}")
     OrderDTO getOrder(@PathVariable String id) {
-        // TODO
-        return new OrderDTO();
+        return ordersService.getOrderById(id);
     }
 
     @PutMapping("/{id}")
@@ -57,6 +54,6 @@ public class OrdersController {
 
     @DeleteMapping("/{id}")
     void deleteOrder(@PathVariable String id) {
-        // TODO
+    	ordersService.deleteOrder(id);
     }
 }

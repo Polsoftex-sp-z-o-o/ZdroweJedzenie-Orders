@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface OrdersRepository extends CrudRepository<OrderDAO, UUID> {
+	
     List<OrderDAO> getOrdersByUserId(UUID userId);
 
     @Query("FROM order o WHERE o.userId = ?1 AND o.state = 'cart'")
