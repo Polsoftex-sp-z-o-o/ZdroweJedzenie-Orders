@@ -14,8 +14,8 @@ import java.util.UUID;
 public interface ProductsClient {
 
     @GetMapping("")
-    List<ProductDTO> getProducts(@RequestParam(required = false) List<UUID> id);
+    List<ProductDTO> getProducts(@RequestParam(required = false, name="id") List<UUID> id);
 
     @GetMapping("/{id}")
-    ProductDTO getProductById(@PathVariable UUID id);
+    ProductDTO getProductById(@PathVariable("id") UUID id);
 }

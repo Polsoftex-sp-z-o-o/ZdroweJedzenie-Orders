@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.Polsoftex.ZdroweJedzenieOrders.feignClients.ProductsClient;
 import com.Polsoftex.ZdroweJedzenieOrders.model.OrderDAO;
@@ -13,6 +14,7 @@ import com.Polsoftex.ZdroweJedzenieOrders.model.OrderedProductDAO;
 import com.Polsoftex.ZdroweJedzenieOrders.repositories.OrderedProductsRepository;
 import com.Polsoftex.ZdroweJedzenieOrders.repositories.OrdersRepository;
 
+@Service
 public class OrdersService {
     //TODO: All business logic related to handling data in response to REST requests.
 	
@@ -30,6 +32,16 @@ public class OrdersService {
         	orders.add(prepareOrderDTO(order));
         }
         return orders;
+    }
+    
+    public OrderDTO createOrder(UUID userId) {
+    	OrderDAO order = ordersRepository.findCart(userId);
+    	order = ordersRepository.save(order);
+    	return prepareOrderDTO(order);
+    }
+    
+    public void updateOrder(String id, OrderDTO orderDTO) {
+    	UUID orderId = UUID.fromString(id);
     }
     
     public OrderDTO getOrderById(String id) {

@@ -38,8 +38,7 @@ public class OrdersController {
 
     @PostMapping("")
     OrderDTO createOrder() {
-        // TODO
-        return new OrderDTO();
+        return ordersService.createOrder(userId);
     }
 
     @GetMapping("/{id}")
@@ -50,6 +49,7 @@ public class OrdersController {
     @PutMapping("/{id}")
     void updateOrder(@PathVariable String id, @RequestBody OrderDTO orderDTO) {
         // TODO
+    	ordersService.updateOrder(id, orderDTO);
     }
 
     @DeleteMapping("/{id}")
