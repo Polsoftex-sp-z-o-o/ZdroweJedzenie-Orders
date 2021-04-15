@@ -11,6 +11,7 @@ import com.Polsoftex.ZdroweJedzenieOrders.feignClients.ProductsClient;
 import com.Polsoftex.ZdroweJedzenieOrders.model.OrderDAO;
 import com.Polsoftex.ZdroweJedzenieOrders.model.OrderDTO;
 import com.Polsoftex.ZdroweJedzenieOrders.model.OrderedProductDAO;
+import com.Polsoftex.ZdroweJedzenieOrders.model.OrderedProductDTO;
 import com.Polsoftex.ZdroweJedzenieOrders.repositories.OrderedProductsRepository;
 import com.Polsoftex.ZdroweJedzenieOrders.repositories.OrdersRepository;
 
@@ -42,6 +43,17 @@ public class OrdersService {
     
     public void updateOrder(String id, OrderDTO orderDTO) {
     	UUID orderId = UUID.fromString(id);
+    	OrderDAO updOrder = ordersRepository.findById(orderId).get();
+    	updOrder.setUserId(orderDTO.getUserId());
+    	updOrder.setPlacementDate(orderDTO.getPlacementDate());
+    	updOrder.setState(orderDTO.getState());
+    	orderedProductsRepository.deleteAllByOrderId(updOrder.getId());
+        List<OrderedProductDAO> orderedProductDAOs = new ArrayList<>();
+        for (OrderedProductDTO orderedProductDTO : orderDTO.getOrderedProductDTOs()) {
+            orderedProductDAOs.add(new OrderedProductDAO(updOrder.getId(), orderedProductDTO.getProductId(), orderedProductDTO.getQuantity()));
+        }
+        orderedProductsRepository.saveAll(orderedProductDAOs);
+        ordersRepository.save(updOrder);
     }
     
     public OrderDTO getOrderById(String id) {
