@@ -1,9 +1,14 @@
-spring:  
-  jpa:  
-    hibernate:  
-      ddl-auto: update  
-    database-platform: org.hibernate.dialect.PostgreSQLDialect  
-  datasource:  
-    url: "jdbc:postgresql://localhost:5432/polsoftexorders"  
-    username: polsoftex  
-    password: polsoftex
+spring:
+  datasource:
+    username: service
+    password: Haslo123
+    url: jdbc:sqlserver://zdrowejedzenie.database.windows.net:1433;databaseName=zdrowejedzenie
+    maxActive: 1
+  jpa:
+    database-platform: org.hibernate.dialect.SQLServerDialect
+
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
