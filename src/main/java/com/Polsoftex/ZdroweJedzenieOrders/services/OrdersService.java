@@ -1,6 +1,7 @@
 package com.Polsoftex.ZdroweJedzenieOrders.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,9 +27,9 @@ public class OrdersService {
     @Autowired
     private ProductsClient productsClient;
     
-    public List<OrderDTO> getOrders() {
+    public List<OrderDTO> getOrders(UUID userId) {
     	List<OrderDTO> orders = new ArrayList<>();
-        Iterable<OrderDAO> orderDAOs = ordersRepository.findAll();
+        Iterable<OrderDAO> orderDAOs = ordersRepository.findAllUserOrders(userId);
         for(OrderDAO order: orderDAOs) {
         	orders.add(prepareOrderDTO(order));
         }
@@ -37,13 +38,15 @@ public class OrdersService {
     
     public OrderDTO createOrder(UUID userId) {
     	OrderDAO order = ordersRepository.findCart(userId);
+    	order.setState("not paid-for");
+    	order.setPlacementDate(new Date());
     	order = ordersRepository.save(order);
     	return prepareOrderDTO(order);
     }
     
     public void updateOrder(String id, OrderDTO orderDTO) {
     	UUID orderId = UUID.fromString(id);
-    	OrderDAO updOrder = ordersRepository.findById(orderId).get();
+    	OrderDAO updOrder = ordersRepository.findOrderById(orderId);
     	updOrder.setUserId(orderDTO.getUserId());
     	updOrder.setPlacementDate(orderDTO.getPlacementDate());
     	updOrder.setState(orderDTO.getState());
@@ -58,7 +61,7 @@ public class OrdersService {
     
     public OrderDTO getOrderById(String id) {
     	UUID orderId = UUID.fromString(id);
-    	OrderDAO order = ordersRepository.findById(orderId).get();
+    	OrderDAO order = ordersRepository.findOrderById(orderId);
     	return prepareOrderDTO(order);
     }
     

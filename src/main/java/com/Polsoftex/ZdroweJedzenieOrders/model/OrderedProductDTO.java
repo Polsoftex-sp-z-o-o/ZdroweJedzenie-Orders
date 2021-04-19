@@ -10,6 +10,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderedProductDTO {
+	
     private UUID productId;
     private int quantity;
 }

@@ -26,14 +26,14 @@ import java.util.UUID;
 public class OrdersController {
 
     //TODO This should be drawn from token
-    private UUID userId = new UUID(1, 1);
+    private UUID userId = UUID.fromString("00000000-0000-0001-0000-000000000001");
 
     @Autowired
     private OrdersService ordersService;
 
     @GetMapping("")
     List<OrderDTO> getOrders() {
-        return ordersService.getOrders();
+        return ordersService.getOrders(userId);
     }
 
     @PostMapping("")
@@ -48,7 +48,6 @@ public class OrdersController {
 
     @PutMapping("/{id}")
     void updateOrder(@PathVariable String id, @RequestBody OrderDTO orderDTO) {
-        // TODO
     	ordersService.updateOrder(id, orderDTO);
     }
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
@@ -19,8 +20,7 @@ import java.util.UUID;
 public class CartController {
 
     //TODO This should be drawn from token
-    private UUID userId = new UUID(1, 1);
-
+    private UUID userId = UUID.fromString("00000000-0000-0001-0000-000000000001");
     @Autowired
     private CartService cartService;
 
