@@ -1,10 +1,6 @@
 package com.Polsoftex.ZdroweJedzenieOrders.controllers;
 
-import com.Polsoftex.ZdroweJedzenieOrders.feignClients.ProductsClient;
 import com.Polsoftex.ZdroweJedzenieOrders.model.OrderDTO;
-import com.Polsoftex.ZdroweJedzenieOrders.repositories.OrderedProductsRepository;
-import com.Polsoftex.ZdroweJedzenieOrders.repositories.OrdersRepository;
-import com.Polsoftex.ZdroweJedzenieOrders.services.CartService;
 import com.Polsoftex.ZdroweJedzenieOrders.services.OrdersService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -25,19 +21,16 @@ import java.util.UUID;
 @RequestMapping("/orders")
 public class OrdersController {
 
-    //TODO This should be drawn from token
-    private UUID userId = UUID.fromString("00000000-0000-0001-0000-000000000001");
-
     @Autowired
     private OrdersService ordersService;
 
     @GetMapping("")
-    List<OrderDTO> getOrders() {
+    List<OrderDTO> getOrders(@RequestParam("userid") UUID userId) {
         return ordersService.getOrders(userId);
     }
 
     @PostMapping("")
-    OrderDTO createOrder() {
+    OrderDTO createOrder(@RequestParam("userid") UUID userId) {
         return ordersService.createOrder(userId);
     }
 
