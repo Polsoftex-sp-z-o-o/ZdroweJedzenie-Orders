@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.Polsoftex.ZdroweJedzenieOrders.feignClients.ProductsClient;
 import com.Polsoftex.ZdroweJedzenieOrders.model.OrderDAO;
@@ -38,6 +40,9 @@ public class OrdersService {
     
     public OrderDTO createOrder(UUID userId) {
     	OrderDAO order = ordersRepository.findCart(userId);
+    	if(order==null) {
+    		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Empty cart.");
+    	}
     	order.setState("not paid-for");
     	order.setPlacementDate(new Date());
     	order = ordersRepository.save(order);
@@ -47,6 +52,9 @@ public class OrdersService {
     public void updateOrder(String id, OrderDTO orderDTO) {
     	UUID orderId = UUID.fromString(id);
     	OrderDAO updOrder = ordersRepository.findOrderById(orderId);
+    	if(updOrder==null) {
+    		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found.");
+    	}
     	updOrder.setUserId(orderDTO.getUserId());
     	updOrder.setPlacementDate(orderDTO.getPlacementDate());
     	updOrder.setState(orderDTO.getState());
@@ -62,11 +70,18 @@ public class OrdersService {
     public OrderDTO getOrderById(String id) {
     	UUID orderId = UUID.fromString(id);
     	OrderDAO order = ordersRepository.findOrderById(orderId);
+    	if(order==null) {
+    		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found.");
+    	}
     	return prepareOrderDTO(order);
     }
     
     public void deleteOrder(String id) {
     	UUID orderId = UUID.fromString(id);
+    	OrderDAO order = ordersRepository.findOrderById(orderId);
+    	if(order==null) {
+    		throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order not found.");
+    	}
     	ordersRepository.deleteById(orderId);
     }
     
