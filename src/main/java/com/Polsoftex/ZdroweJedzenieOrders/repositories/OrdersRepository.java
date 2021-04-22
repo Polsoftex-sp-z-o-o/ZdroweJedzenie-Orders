@@ -18,7 +18,7 @@ public interface OrdersRepository extends CrudRepository<OrderDAO, UUID> {
     @Query("FROM order o WHERE o.id = ?1 AND o.state != 'cart'")
     OrderDAO findOrderById(UUID id);
     
-    @Query("FROM order o WHERE o.id = ?1 AND o.state != 'cart'")
+    @Query("FROM order o WHERE o.userId = ?1 AND o.state != 'cart'")
     Iterable<OrderDAO> findAllUserOrders(UUID userId);
 
     @Query("FROM order o WHERE o.userId = ?1 AND o.state = 'cart'")

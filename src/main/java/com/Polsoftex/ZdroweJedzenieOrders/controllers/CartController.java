@@ -19,28 +19,26 @@ import java.util.UUID;
 @RequestMapping("/cart")
 public class CartController {
 
-    //TODO This should be drawn from token
-    private UUID userId = UUID.fromString("00000000-0000-0001-0000-000000000001");
     @Autowired
     private CartService cartService;
 
     @GetMapping("")
-    OrderDTO getCart() {
+    OrderDTO getCart(@RequestParam("userid") UUID userId) {
         return cartService.getCart(userId);
     }
 
     @PostMapping("")
-    OrderDTO addItemToCart(@RequestBody OrderedProductDTO orderedProductDTO) {
+    OrderDTO addItemToCart(@RequestParam("userid") UUID userId, @RequestBody OrderedProductDTO orderedProductDTO) {
         return cartService.addProductToCart(userId, orderedProductDTO);
     }
 
     @PutMapping("")
-    void updateCart(@RequestBody OrderDTO orderDTO) {
+    void updateCart(@RequestParam("userid") UUID userId, @RequestBody OrderDTO orderDTO) {
         cartService.updateCart(userId, orderDTO);
     }
 
     @DeleteMapping("")
-    void clearCart() {
+    void clearCart(@RequestParam("userid") UUID userId) {
         cartService.deleteCart(userId);
     }
 }
