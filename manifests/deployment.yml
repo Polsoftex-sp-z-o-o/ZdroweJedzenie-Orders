@@ -18,7 +18,7 @@ spec:
         app: zdrowejedzenie-orders
     spec:
       containers:
-        - image: polsoftex.azurecr.io/zdrowejedzenie-orders:latest
+        - image: polsoftexregistry.azurecr.io/zdrowejedzenie-orders:latest
           name: zdrowejedzenie-orders
           resources: {}
 status: {}
