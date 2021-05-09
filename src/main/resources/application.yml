@@ -1,9 +1,8 @@
 spring:
   datasource:
-    username: service
+    username: polsoftex-admin
     password: Haslo123
-    url: jdbc:sqlserver://zdrowejedzenie.database.windows.net:1433;databaseName=zdrowejedzenie
-    maxActive: 1
+    url: jdbc:sqlserver://zdrowejedzenie.database.windows.net:1433;database=zdrowejedzenie-orders
   jpa:
     database-platform: org.hibernate.dialect.SQLServerDialect
 
