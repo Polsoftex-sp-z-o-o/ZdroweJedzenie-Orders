@@ -1,9 +1,11 @@
 package com.Polsoftex.ZdroweJedzenieOrders.controllers;
 
+import com.Polsoftex.ZdroweJedzenieOrders.exceptions.CartNotFoundException;
 import com.Polsoftex.ZdroweJedzenieOrders.model.OrderedProductDTO;
 import com.Polsoftex.ZdroweJedzenieOrders.model.OrderDTO;
 import com.Polsoftex.ZdroweJedzenieOrders.services.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,8 +24,8 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @GetMapping("")
-    OrderDTO getCart(@RequestParam("userid") UUID userId) {
+    @GetMapping(value = "" , produces = MediaType.APPLICATION_JSON_VALUE)
+    OrderDTO getCart(@RequestParam("userid") UUID userId) throws CartNotFoundException {
         return cartService.getCart(userId);
     }
 

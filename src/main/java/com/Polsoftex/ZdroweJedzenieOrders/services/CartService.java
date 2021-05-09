@@ -1,5 +1,6 @@
 package com.Polsoftex.ZdroweJedzenieOrders.services;
 
+import com.Polsoftex.ZdroweJedzenieOrders.exceptions.CartNotFoundException;
 import com.Polsoftex.ZdroweJedzenieOrders.feignClients.ProductsClient;
 import com.Polsoftex.ZdroweJedzenieOrders.model.OrderDAO;
 import com.Polsoftex.ZdroweJedzenieOrders.model.OrderDTO;
@@ -25,10 +26,10 @@ public class CartService {
     @Autowired
     private ProductsClient productsClient;
 
-    public OrderDTO getCart(UUID userId) {
+    public OrderDTO getCart(UUID userId) throws CartNotFoundException {
         OrderDAO cartDAO = ordersRepository.findCart(userId);
         if (cartDAO == null) {
-            return null;
+            throw new CartNotFoundException();
         }
         return prepareOrderDTO(cartDAO);
     }
