@@ -6,7 +6,6 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.SQLServerDialect
 
-
 logging:
   level:
     org.hibernate.SQL: DEBUG
