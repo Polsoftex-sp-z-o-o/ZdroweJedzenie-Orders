@@ -62,6 +62,11 @@ public class CartService {
         ordersRepository.deleteCart(userId);
     }
 
+    public void deleteProductFromCart(UUID userId, UUID productId) {
+        OrderDAO orderDAO = ordersRepository.findCartByUserId(userId);
+        orderedProductsRepository.deleteProductFromCart(orderDAO.getId(), productId);
+    }
+
     private OrderDTO prepareOrderDTO(OrderDAO orderDAO) {
         List<OrderedProductDAO> orderedProductDAOs = orderedProductsRepository.findAllByOrderId(orderDAO.getId());
         return new OrderDTO(orderDAO, orderedProductDAOs);
