@@ -42,9 +42,15 @@ public class CartService {
             orderDAO.setUserId(userId);
             orderDAO.setState("cart");
             orderDAO = ordersRepository.save(orderDAO);
+            addNewProduct(orderDAO.getId(), orderedProductDTO);
+        } else {
+            OrderedProductDAO orderedProductDAO = orderedProductsRepository.getOrderedProduct(orderDAO.getId(), orderedProductDTO.getProductId());
+            if (orderedProductDAO == null) {
+                addNewProduct(orderDAO.getId(), orderedProductDTO);
+            } else {
+                updateProductQuantity(orderDAO.getId(), orderedProductDTO);
+            }
         }
-        OrderedProductDAO newlyOrderedProductDAO = new OrderedProductDAO(orderDAO.getId(), orderedProductDTO.getProductId(), orderedProductDTO.getQuantity());
-        newlyOrderedProductDAO = orderedProductsRepository.save(newlyOrderedProductDAO);
         return prepareOrderDTO(orderDAO);
     }
 
@@ -65,6 +71,15 @@ public class CartService {
     public void deleteProductFromCart(UUID userId, UUID productId) {
         OrderDAO orderDAO = ordersRepository.findCartByUserId(userId);
         orderedProductsRepository.deleteProductFromCart(orderDAO.getId(), productId);
+    }
+
+    private void updateProductQuantity(UUID orderId, OrderedProductDTO orderedProductDTO) {
+        orderedProductsRepository.modifyProductQuantity(orderId, orderedProductDTO.getProductId(), orderedProductDTO.getQuantity());
+    }
+
+    private void addNewProduct(UUID orderId, OrderedProductDTO orderedProductDTO) {
+        OrderedProductDAO newlyOrderedProductDAO = new OrderedProductDAO(orderId, orderedProductDTO.getProductId(), orderedProductDTO.getQuantity());
+        orderedProductsRepository.save(newlyOrderedProductDAO);
     }
 
     private OrderDTO prepareOrderDTO(OrderDAO orderDAO) {
