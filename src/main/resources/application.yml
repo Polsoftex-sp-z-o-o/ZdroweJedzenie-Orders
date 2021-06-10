@@ -2,7 +2,7 @@ spring:
   datasource:
     username: polsoftex-admin
     password: Haslo123
-    url: jdbc:sqlserver://zdrowejedzenie.database.windows.net:1433;database=zdrowejedzenie-orders
+    url: jdbc:sqlserver://zdrowejedzenie2.database.windows.net:1433;database=zdrowejedzenie-orders
   jpa:
     database-platform: org.hibernate.dialect.SQLServerDialect
 
