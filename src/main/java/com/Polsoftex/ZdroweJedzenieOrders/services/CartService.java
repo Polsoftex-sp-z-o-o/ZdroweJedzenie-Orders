@@ -51,6 +51,7 @@ public class CartService {
                 updateProductQuantity(orderDAO.getId(), orderedProductDTO);
             }
         }
+        orderDAO = ordersRepository.findCart(userId);
         return prepareOrderDTO(orderDAO);
     }
 
