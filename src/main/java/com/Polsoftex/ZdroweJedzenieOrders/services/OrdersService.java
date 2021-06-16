@@ -43,7 +43,7 @@ public class OrdersService {
     	if(order==null) {
     		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Empty cart.");
     	}
-    	order.setState("not paid-for");
+    	order.setState("paid-for");
     	order.setPlacementDate(new Date());
     	order = ordersRepository.save(order);
     	return prepareOrderDTO(order);
